@@ -1,0 +1,473 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 210 100% 50%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 210 100% 50%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    overscroll-behavior: none;
+  }
+
+  /* Improve mobile touch targets */
+  button,
+  a {
+    @apply touch-manipulation;
+  }
+}
+
+.font-orbitron {
+  font-family: var(--font-orbitron);
+}
+
+/* Animation classes with performance optimizations */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+  will-change: opacity;
+}
+
+.slide-up {
+  animation: slideUp 0.5s ease-in-out;
+  will-change: transform, opacity;
+}
+
+.slide-in {
+  animation: slideIn 0.5s ease-in-out;
+  will-change: transform, opacity;
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+  will-change: transform;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Additional animations with performance optimizations */
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px rgba(3, 160, 250, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(3, 160, 250, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(3, 160, 250, 0.5);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-glow {
+  animation: glow 3s infinite;
+  will-change: box-shadow;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-spin-slow {
+  animation: spin 8s linear infinite;
+  will-change: transform;
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 768px) {
+  .mobile-nav-height {
+    height: calc(100vh - 8rem); /* Account for top and bottom bars */
+  }
+
+  .has-bottom-nav {
+    padding-bottom: 5rem;
+  }
+
+  .mobile-touch-scroll {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(3, 160, 250, 0.5);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(3, 160, 250, 0.8);
+}
+
+/* Safe area insets for notched devices */
+.safe-area-inset-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.safe-area-inset-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Quantum-themed components */
+.quantum-card {
+  @apply relative rounded-lg border border-primary/20 bg-black/60 backdrop-blur-sm overflow-hidden transition-all duration-300;
+  box-shadow: 0 4px 20px rgba(3, 160, 250, 0.1);
+}
+
+.quantum-card:hover {
+  box-shadow: 0 8px 30px rgba(3, 160, 250, 0.2);
+  border-color: rgba(3, 160, 250, 0.4);
+}
+
+.quantum-glow {
+  @apply relative;
+}
+
+.quantum-glow::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(45deg, transparent, rgba(3, 160, 250, 0.3), transparent);
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.quantum-glow:hover::before {
+  opacity: 1;
+}
+
+.quantum-button {
+  @apply relative overflow-hidden rounded-md bg-primary/10 text-primary border border-primary/30 px-4 py-2 font-orbitron transition-all duration-300;
+}
+
+.quantum-button:hover {
+  @apply bg-primary/20 border-primary/50;
+}
+
+.quantum-button::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(3, 160, 250, 0.8);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1);
+  transition: transform 0.5s, opacity 0.5s;
+}
+
+.quantum-button:active::after {
+  transform: scale(50);
+  opacity: 0.3;
+  transition: transform 0.2s, opacity 0.4s;
+}
+
+/* Tier-specific colors */
+.tier-1-color {
+  color: #6b7280;
+}
+.tier-2-color {
+  color: #03a0fa;
+}
+.tier-3-color {
+  color: #10b981;
+}
+.tier-4-color {
+  color: #8b5cf6;
+}
+.tier-5-color {
+  color: #f59e0b;
+}
+
+.tier-1-bg {
+  background-color: rgba(107, 114, 128, 0.2);
+}
+.tier-2-bg {
+  background-color: rgba(3, 160, 250, 0.2);
+}
+.tier-3-bg {
+  background-color: rgba(16, 185, 129, 0.2);
+}
+.tier-4-bg {
+  background-color: rgba(139, 92, 246, 0.2);
+}
+.tier-5-bg {
+  background-color: rgba(245, 158, 11, 0.2);
+}
+
+.tier-1-border {
+  border-color: rgba(107, 114, 128, 0.3);
+}
+.tier-2-border {
+  border-color: rgba(3, 160, 250, 0.3);
+}
+.tier-3-border {
+  border-color: rgba(16, 185, 129, 0.3);
+}
+.tier-4-border {
+  border-color: rgba(139, 92, 246, 0.3);
+}
+.tier-5-border {
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+/* Fix for iOS Safari 100vh issue */
+.min-h-screen {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+
+html {
+  height: -webkit-fill-available;
+}
+
+/* Improved accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* App-specific layout fixes */
+.app-container {
+  @apply flex flex-col min-h-screen;
+}
+
+.app-content {
+  @apply flex-1 w-full max-w-screen-xl mx-auto px-4 sm:px-6 md:px-8;
+}
+
+.app-header {
+  @apply fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-primary/20;
+  height: 4rem;
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.app-footer {
+  @apply bg-black border-t border-primary/20 py-6 px-4;
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);
+}
+
+.app-bottom-nav {
+  @apply fixed bottom-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-t border-primary/20 flex items-center justify-around;
+  height: 4rem;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Content spacing accounting for fixed elements */
+.app-page {
+  @apply pt-16 pb-20 md:pt-20 md:pb-8;
+}
+
+/* Responsive grid layouts */
+.responsive-grid {
+  @apply grid gap-4 sm:gap-6;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.responsive-grid-small {
+  @apply grid gap-4;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+/* Improved form elements */
+.quantum-input {
+  @apply bg-black/50 border border-primary/30 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all duration-300;
+}
+
+.quantum-label {
+  @apply block text-sm font-orbitron mb-2 text-foreground/80;
+}
+
+/* Loading states */
+.quantum-skeleton {
+  @apply bg-gradient-to-r from-black/40 via-primary/10 to-black/40 rounded-md;
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+/* Improved card layouts */
+.card-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6;
+}
+
+.card-list {
+  @apply space-y-6;
+}
+
+/* Improved typography */
+.heading-1 {
+  @apply font-orbitron text-3xl md:text-4xl font-bold;
+}
+
+.heading-2 {
+  @apply font-orbitron text-2xl md:text-3xl font-bold;
+}
+
+.heading-3 {
+  @apply font-orbitron text-xl md:text-2xl font-bold;
+}
+
+.body-text {
+  @apply text-base text-foreground/80 leading-relaxed;
+}
+
+.caption-text {
+  @apply text-sm text-foreground/60;
+}
+
+/* Fix for mobile hover effects */
+@media (hover: hover) {
+  .hover-effect:hover {
+    @apply transform -translate-y-1 transition-transform duration-300;
+  }
+}
+
+/* Fix for mobile tap highlight */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Fix for iOS momentum scrolling */
+.momentum-scroll {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: scroll;
+}
+
+/* Fix for sticky hover states on mobile */
+@media (hover: none) {
+  .hover\:bg-primary:hover {
+    background-color: inherit !important;
+  }
+
+  .hover\:text-primary:hover {
+    color: inherit !important;
+  }
+}
+
+/* Fix for notched devices */
+.notch-padding {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
