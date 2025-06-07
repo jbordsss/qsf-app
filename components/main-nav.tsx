@@ -11,8 +11,9 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useRouter } from "next/navigation"
 import { AuthButton } from "@/components/auth-button"
+import type { User } from "@/lib/types"
 
-export function MainNav() {
+export function MainNav({ user, onLogout }: { user: User | null; onLogout: () => void }) {
   const pathname = usePathname()
   const router = useRouter()
   const [searchQuery, setSearchQuery] = useState("")
@@ -81,6 +82,7 @@ export function MainNav() {
           </Link>
         </nav>
       </div>
+      
       <div className="flex items-center gap-4">
         {isSearchOpen ? (
           <form onSubmit={handleSearch} className="flex items-center gap-2 animate-fadeIn">
@@ -102,8 +104,20 @@ export function MainNav() {
             <span className="ml-2 font-orbitron">Search</span>
           </Button>
         )}
-        <AuthButton />
+
+        {user ? (
+          <>
+            <span className="text-sm text-muted-foreground">Hi, {user.name || user.email}</span>
+            <Button variant="outline" size="sm" onClick={onLogout}>
+              Logout
+            </Button>
+          </>
+        ) : (
+          <AuthButton />
+        )}
       </div>
+
+
     </div>
   )
 }

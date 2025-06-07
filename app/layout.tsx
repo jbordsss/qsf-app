@@ -1,7 +1,7 @@
 import type React from "react"
 import { Inter, Orbitron } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
-import "./globals.css"
+import "@/app/globals.css" 
 
 const inter = Inter({
   subsets: ["latin"],

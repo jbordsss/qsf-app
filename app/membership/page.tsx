@@ -136,6 +136,12 @@ export default function MembershipPage() {
                         Current Tier
                       </Button>
                     ) : (
+                      <a
+  href={tier.checkoutUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="w-full"
+>
                       <Button
                         className={`w-full mt-4 quantum-button tier-${tier.tier}-bg tier-${tier.tier}-border`}
                         onClick={() => handleUpgrade(tier.tier)}
@@ -148,6 +154,7 @@ export default function MembershipPage() {
                             ? "Contact Sales"
                             : `Get ${tier.name}`}
                       </Button>
+                      </a>
                     )}
                   </div>
                 </div>

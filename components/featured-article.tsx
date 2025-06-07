@@ -1,15 +1,39 @@
+"use client"
+
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
-import { fetchFeaturedArticle } from "@/lib/data"
 import { Button } from "@/components/ui/button"
 import { QuantumCard } from "@/components/quantum-card"
+import type { Article } from "@/lib/types"
 
-export async function FeaturedArticle() {
-  const article = await fetchFeaturedArticle()
+export function FeaturedArticle() {
+  const [article, setArticle] = useState<Article | null>(null)
 
-  if (!article) {
-    return null
-  }
+  useEffect(() => {
+    const cached = localStorage.getItem("featured-article")
+    if (cached) {
+      try {
+        setArticle(JSON.parse(cached))
+      } catch {
+        localStorage.removeItem("featured-article")
+      }
+    }
+
+    async function load() {
+      const res = await fetch("/api/assistant?q=quantum")
+      const data: Article[] = await res.json()
+      const featured = data.find((a) => a.featured) || data[0] || null
+      if (featured) {
+        setArticle(featured)
+        localStorage.setItem("featured-article", JSON.stringify(featured))
+      }
+    }
+
+    load()
+  }, [])
+
+  if (!article) return null
 
   return (
     <QuantumCard className="group">
@@ -25,7 +49,12 @@ export async function FeaturedArticle() {
           </h3>
           <p className="text-muted-foreground mb-6 line-clamp-3">{article.excerpt}</p>
           <div className="mt-auto">
-            <Link href={`/news/${article.slug}`}>
+            <Link
+              href={{
+                pathname: `/news/${article.slug}`,
+                query: { article: JSON.stringify(article) },
+              }}
+            >
               <Button className="group">
                 Read Article
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -33,9 +62,12 @@ export async function FeaturedArticle() {
             </Link>
           </div>
         </div>
-        <div className="md:w-1/2 h-[200px] md:h-auto bg-gradient-to-r from-primary/5 to-primary/20 flex items-center justify-center">
-          <div className="font-orbitron text-4xl text-primary/80 p-8 text-center">
-            {article.title.split(" ").slice(0, 3).join(" ")}
+        <div
+          className="relative h-72 flex items-center justify-center bg-cover bg-center"
+          style={{ backgroundImage: `url(${article.heroImageUrl})` }}
+        >
+          <div className="font-orbitron text-4xl text-primary/80 bg-black/50 p-4 rounded">
+            {article.title.split(" ").slice(0, 6).join(" ")}
           </div>
         </div>
       </div>

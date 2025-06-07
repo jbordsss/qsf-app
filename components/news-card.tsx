@@ -15,9 +15,11 @@ export function NewsCard({ article, variant = "default", className }: NewsCardPr
   return (
     <Link href={`/news/${article.slug}`} className="block group">
       <QuantumCard className={cn("h-full transition-all duration-300 hover:translate-y-[-5px]", className)}>
-        <div className="h-48 bg-gradient-to-r from-primary/10 to-primary/5 flex items-center justify-center overflow-hidden">
+        <div className="h-48 bg-gradient-to-r from-primary/10 to-primary/5 flex items-center justify-center overflow-hidden"
+       style={{ backgroundImage: `url(${article.heroImageUrl})` }} >
           <div className="font-orbitron text-xl text-primary/70 p-4 text-center transition-all group-hover:scale-105 group-hover:text-primary">
-            {article.title.split(" ").slice(0, 3).join(" ")}
+          
+            {article.title.split(" ").slice(0, 10).join(" ")}
           </div>
         </div>
         <div className="p-4">

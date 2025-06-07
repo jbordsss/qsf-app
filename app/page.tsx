@@ -8,13 +8,14 @@ import { NewsletterSignup } from "@/components/newsletter-signup"
 import { Skeleton } from "@/components/ui/skeleton"
 import { QuantumHeading } from "@/components/quantum-heading"
 import { TrendingTopics } from "@/components/trending-topics"
-
+import { SingleArticleCard } from "@/components/article-viewer"
 export default function HomePage() {
   return (
     <MainLayout>
       <div className="container mx-auto px-4 py-8">
         <section className="mb-12">
           <QuantumHeading level={2}>Featured Stories</QuantumHeading>
+     
           <Suspense fallback={<div className="h-[400px] w-full bg-muted animate-pulse rounded-lg"></div>}>
             <FeaturedArticle />
           </Suspense>
@@ -38,7 +39,7 @@ export default function HomePage() {
                   </div>
                 }
               >
-                <NewsGrid category="latest" />
+                <NewsGrid limit={3} />
               </Suspense>
             </section>
 
@@ -58,7 +59,7 @@ export default function HomePage() {
                   </div>
                 }
               >
-                <NewsGrid category="quantum-computing" limit={4} />
+                <NewsGrid category="quantum-computing" limit={6} />
               </Suspense>
               <div className="mt-4 text-center">
                 <Link

@@ -7,8 +7,9 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { getCategoryName } from "@/lib/utils"
 import { QuantumHeading } from "@/components/quantum-heading"
 
-export default function CategoryPage({ params }: { params: { slug: string } }) {
-  const categoryName = getCategoryName(params.slug)
+export default async function CategoryPage({ params }: { params: { slug: string } }) {
+  
+  const categoryName = getCategoryName(params.slug);
 
   return (
     <MainLayout>

@@ -1,4 +1,6 @@
 export interface Article {
+  accessLevel : "public" | "member" | "premium"
+
   id: string
   title: string
   slug: string
@@ -7,6 +9,9 @@ export interface Article {
   date: string
   author: string
   category: string
+  heroImageUrl: string;
+  heroImageBase64?: string;
+ 
   tags: string[]
   featured?: boolean
   accessTier?: AccessTier // Changed from accessLevel to accessTier
@@ -36,6 +41,7 @@ export interface Course {
   id: string
   title: string
   slug: string
+  excerpt:string
   description: string
   tier: AccessTier
   duration: string
