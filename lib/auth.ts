@@ -1,5 +1,7 @@
 import type { User, AccessTier } from "@/lib/types"
 
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+
 // Mock current user - in a real app, this would come from an auth provider
 let currentUser: User | null = null
 
@@ -13,7 +15,7 @@ export async function getCurrentUser() {
   const token = localStorage.getItem("token");
   if (!token) return null;
 
-  const res = await fetch("http://localhost:8000/me", {
+  const res = await fetch(`${BASE_URL}/me`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -28,7 +30,7 @@ export async function getCurrentUser() {
 // Login user
 export async function login(email: string, password: string) {
   try {
-    const res = await fetch("http://localhost:8000/login", {
+    const res = await fetch(`${BASE_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -66,7 +68,7 @@ export function logout() {
 // Register user
 export async function register(name: string, email: string, password: string) {
   try {
-    const res = await fetch("http://localhost:8000/register", {
+    const res = await fetch(`${BASE_URL}/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email, password }),
@@ -109,7 +111,7 @@ export async function upgradeTier(tier: AccessTier) {
   const priceId = priceMap[tier];
   if (!priceId || !email) return { success: false, error: "Missing data" };
 
-  const res = await fetch("http://localhost:8000/create-checkout-session", {
+  const res = await fetch(`${BASE_URL}/create-checkout-session`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, price_id: priceId }),
