@@ -10,7 +10,7 @@ export function Footer() {
           <div className="md:col-span-1">
             <Logo />
             <p className="mt-4 text-sm text-muted-foreground">
-              The Quanta Standard Foundation Sphere is your premier gateway to the quantum world, delivering
+              The Quanta Standard Foundation App is your premier gateway to the quantum world, delivering
               cutting-edge news and discoveries in quantum science and technology.
             </p>
           </div>
