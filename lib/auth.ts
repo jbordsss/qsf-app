@@ -1,6 +1,6 @@
 import type { User, AccessTier } from "@/lib/types"
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000" 
 
 // Mock current user - in a real app, this would come from an auth provider
 let currentUser: User | null = null
