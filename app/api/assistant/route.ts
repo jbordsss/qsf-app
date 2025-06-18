@@ -4,7 +4,7 @@ import { uploadImageToS3 } from "@/lib/aws/s3Upload";
 import type { Article } from "@/lib/types";
 import axios from "axios";
 import FormData from "form-data";
-import Mercury from "@postlight/mercury-parser";
+import { parse } from "@postlight/parser";
 import { load } from "cheerio";
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY!;
@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
 
     for (const url of links.slice(0, 10)) {
       try {
-        const result = await Mercury.parse(url);
+        const result = await parse(url);
         const $ = load(result.content || "");
         const rawText = $.text().replace(/\s+/g, " ").trim();
 
